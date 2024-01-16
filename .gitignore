@@ -1,0 +1,12 @@
+src/.idea/
+src/.vs/
+src/PizzaOrders.API/bin/
+src/PizzaOrders.API/obj/
+src/PizzaOrders.Application/bin/
+src/PizzaOrders.Application/obj/
+src/PizzaOrders.Contracts/bin/
+src/PizzaOrders.Contracts/obj/
+src/PizzaOrders.Domain/bin/
+src/PizzaOrders.Infrastructure/obj/
+src/PizzaOrders.Domain/obj/
+src/PizzaOrders.Infrastructure/bin/
