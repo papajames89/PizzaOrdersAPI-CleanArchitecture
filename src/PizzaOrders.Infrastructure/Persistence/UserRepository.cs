@@ -1,22 +1,31 @@
-using System.Reflection.Metadata;
+using MongoDB.Driver;
 using PizzaOrders.Application.Common.Interfaces.Persistence;
 using PizzaOrders.Domain.Entities;
+using PizzaOrders.Infrastructure.Persistence.MongoDb;
 
 namespace PizzaOrders.Infrastructure.Persistence
 {
     public class UserRepository : IUserRepository
     {
+        private readonly IMongoCollection<User> _collection;
+        public UserRepository(IMongoContext mongoContext)
+        {
+            _collection = mongoContext.GetCollection<User>("UsersDB");
+        }
         // TODO remove in further development, connect with database
         private static readonly List<User> _users = new();
+        
 
-        public User? GetUserByEmail(string email)
+        public async Task<User> GetUserByEmailAsync(string email)
         {
-            return _users.FirstOrDefault(u => u.Email == email);
+            var filter = Builders<User>.Filter.Eq(u => u.Email, email);
+            var result = await _collection.FindAsync(filter);
+            return await result.FirstOrDefaultAsync();
         }
 
-        public void Add(User user)
+        public async Task Add(User user)
         {
-            _users.Add(user);
+            await _collection.InsertOneAsync(user);
         }
     }
 }

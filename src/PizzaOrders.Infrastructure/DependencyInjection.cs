@@ -5,6 +5,7 @@ using PizzaOrders.Application.Common.Interfaces.Persistence;
 using PizzaOrders.Application.Common.Interfaces.Services;
 using PizzaOrders.Infrastructure.Authentication;
 using PizzaOrders.Infrastructure.Persistence;
+using PizzaOrders.Infrastructure.Persistence.MongoDb;
 using PizzaOrders.Infrastructure.Services;
 
 namespace PizzaOrders.Infrastructure
@@ -20,6 +21,7 @@ namespace PizzaOrders.Infrastructure
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddMongoDbRepository(builderConfiguration);
             return services;
         }
     }

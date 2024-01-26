@@ -15,17 +15,19 @@ namespace PizzaOrders.Application.Services.Authentication
             _userRepository = userRepository;
         }
 
-        public AuthenticationResult Register(string firstName, string lastName, string email, string password)
+        public async Task<AuthenticationResult> Register(string firstName, string lastName, string email,
+            string password)
         {
             // Check if user already exists
-            if (_userRepository.GetUserByEmail(email) is not null)
+            var existingUser = await _userRepository.GetUserByEmailAsync(email);
+            if (existingUser is not null)
             {
                 throw new Exception("User with given email already exists!");
             }
 
             // Create user (generate unique ID)
-            var user = new User { FirstName = firstName, LastName = lastName, Email = email, Password = password };
-            _userRepository.Add(user);
+            var user = new User(Guid.NewGuid(), firstName, lastName, email, password);
+            await _userRepository.Add(user);
 
 
             // Create JWT token
@@ -34,10 +36,11 @@ namespace PizzaOrders.Application.Services.Authentication
             return new AuthenticationResult(user, token);
         }
 
-        public AuthenticationResult Login(string email, string password)
+        public async Task<AuthenticationResult> Login(string email, string password)
         {
             // Validate the user exists
-            if (_userRepository.GetUserByEmail(email) is not User user)
+            var existingUser = await _userRepository.GetUserByEmailAsync(email);
+            if (existingUser is not User user)
             {
                 throw new Exception("Invalid credentials!");
             }

@@ -19,9 +19,9 @@ namespace PizzaOrders.API.Controllers.V1
         }
 
         [HttpPost("register")]
-        public IActionResult Register(RegisterRequest request)
+        public async Task<IActionResult> Register(RegisterRequest request)
         {
-            var authResult = _authenticationService.Register(
+            var authResult = await _authenticationService.Register(
                 request.FirstName,
                 request.LastName,
                 request.Email,
@@ -38,9 +38,9 @@ namespace PizzaOrders.API.Controllers.V1
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginRequest request)
+        public async Task<IActionResult> Login(LoginRequest request)
         {
-            var authResult = _authenticationService.Login(
+            var authResult = await _authenticationService.Login(
                 request.Email,
                 request.Password);
 
