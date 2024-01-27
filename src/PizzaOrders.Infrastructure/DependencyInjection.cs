@@ -16,12 +16,15 @@ namespace PizzaOrders.Infrastructure
             ConfigurationManager builderConfiguration)
         {
             services.Configure<JwtSettings>(builderConfiguration.GetSection(JwtSettings.SectionName));
-            
+            services.Configure<JwtValidationParameters>(builderConfiguration.GetSection(JwtValidationParameters.SectionName));
+            services.ConfigureOptions<JwtBearerOptionsSetup>();
+
             services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddMongoDbRepository(builderConfiguration);
+            
             return services;
         }
     }
