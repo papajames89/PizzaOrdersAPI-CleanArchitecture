@@ -12,7 +12,6 @@ namespace PizzaOrders.API.Controllers.V1
     {
         private readonly IAuthenticationService _authenticationService;
 
-
         public AuthenticationController(IAuthenticationService authenticationService)
         {
             _authenticationService = authenticationService;
