@@ -1,8 +1,10 @@
 using PizzaOrders.Application.Common.Interfaces.Authentication;
 using PizzaOrders.Application.Common.Interfaces.Persistence;
+using PizzaOrders.Application.Services.Authentication;
+using PizzaOrders.Contracts.Authentication;
 using PizzaOrders.Domain.Entities;
 
-namespace PizzaOrders.Application.Services.Authentication
+namespace PizzaOrders.Infrastructure.Services.Authentication
 {
     public class AuthenticationService : IAuthenticationService
     {
@@ -50,10 +52,10 @@ namespace PizzaOrders.Application.Services.Authentication
             {
                 throw new Exception("Invalid credentials!");
             }
-            
+
             // Create JWT token
             var token = _jwtTokenGenerator.GenerateToken(user);
-            
+
             return new AuthenticationResult(user, token);
         }
     }

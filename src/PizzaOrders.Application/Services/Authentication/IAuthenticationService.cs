@@ -1,3 +1,5 @@
+using PizzaOrders.Contracts.Authentication;
+
 namespace PizzaOrders.Application.Services.Authentication
 {
     public interface IAuthenticationService

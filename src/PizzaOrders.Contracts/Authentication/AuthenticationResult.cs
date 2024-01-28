@@ -1,6 +1,6 @@
 using PizzaOrders.Domain.Entities;
 
-namespace PizzaOrders.Application.Services.Authentication
+namespace PizzaOrders.Contracts.Authentication
 {
     public record AuthenticationResult(
         User User,

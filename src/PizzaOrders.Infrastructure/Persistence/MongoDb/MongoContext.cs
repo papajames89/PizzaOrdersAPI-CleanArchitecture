@@ -1,43 +1,44 @@
 using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
-namespace PizzaOrders.Infrastructure.Persistence.MongoDb;
-
-public class MongoContext : IMongoContext
+namespace PizzaOrders.Infrastructure.Persistence.MongoDb
 {
-    private IMongoDatabase? Database { get; set; }
-    public IClientSessionHandle? Session { get; set; }
-    private MongoClient? MongoClient { get; set; }
-    private readonly IConfiguration _configuration;
-
-    public MongoContext(IConfiguration configuration)
+    public class MongoContext : IMongoContext
     {
-        _configuration = configuration;
-    }
+        private IMongoDatabase? Database { get; set; }
+        public IClientSessionHandle? Session { get; set; }
+        private MongoClient? MongoClient { get; set; }
+        private readonly IConfiguration _configuration;
 
-    private void ConfigureMongo()
-    {
-        if (MongoClient != null)
+        public MongoContext(IConfiguration configuration)
         {
-            return;
+            _configuration = configuration;
         }
 
-        // Configure mongo (You can inject the config, just to simplify)
-        MongoClient = new MongoClient(_configuration["PizzaOrdersDatabaseSettings:ConnectionString"]);
+        private void ConfigureMongo()
+        {
+            if (MongoClient != null)
+            {
+                return;
+            }
 
-        Database = MongoClient.GetDatabase(_configuration["PizzaOrdersDatabaseSettings:DatabaseName"]);
-    }
+            // Configure mongo (You can inject the config, just to simplify)
+            MongoClient = new MongoClient(_configuration["PizzaOrdersDatabaseSettings:ConnectionString"]);
 
-    public IMongoCollection<T> GetCollection<T>(string name)
-    {
-        ConfigureMongo();
+            Database = MongoClient.GetDatabase(_configuration["PizzaOrdersDatabaseSettings:DatabaseName"]);
+        }
 
-        return Database?.GetCollection<T>(name)!;
-    }
+        public IMongoCollection<T> GetCollection<T>(string name)
+        {
+            ConfigureMongo();
 
-    public void Dispose()
-    {
-        Session?.Dispose();
-        GC.SuppressFinalize(this);
+            return Database?.GetCollection<T>(name)!;
+        }
+
+        public void Dispose()
+        {
+            Session?.Dispose();
+            GC.SuppressFinalize(this);
+        }
     }
 }

@@ -1,5 +1,4 @@
 using Microsoft.Extensions.DependencyInjection;
-using PizzaOrders.Application.Services.Authentication;
 
 namespace PizzaOrders.Application
 {
@@ -7,8 +6,6 @@ namespace PizzaOrders.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
-
             return services;
         }
     }

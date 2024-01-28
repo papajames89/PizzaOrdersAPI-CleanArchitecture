@@ -8,13 +8,11 @@ namespace PizzaOrders.Infrastructure.Persistence
     public class UserRepository : IUserRepository
     {
         private readonly IMongoCollection<User> _collection;
+
         public UserRepository(IMongoContext mongoContext)
         {
             _collection = mongoContext.GetCollection<User>("UsersDB");
         }
-        // TODO remove in further development, connect with database
-        private static readonly List<User> _users = new();
-        
 
         public async Task<User> GetUserByEmailAsync(string email)
         {

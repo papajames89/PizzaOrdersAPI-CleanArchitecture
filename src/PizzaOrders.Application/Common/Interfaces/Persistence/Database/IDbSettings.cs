@@ -1,7 +1,8 @@
-namespace PizzaOrders.Application.Common.Interfaces.Persistence.Database;
-
-public interface IDbSettings
+namespace PizzaOrders.Application.Common.Interfaces.Persistence.Database
 {
-    string? DatabaseName { get; set; }
-    string? ConnectionString { get; set; }
+    public interface IDbSettings
+    {
+        string? DatabaseName { get; set; }
+        string? ConnectionString { get; set; }
+    }
 }

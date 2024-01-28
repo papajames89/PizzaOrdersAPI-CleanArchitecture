@@ -1,61 +1,62 @@
-namespace PizzaOrders.Domain.Primitives;
-
-public abstract class Entity : IEquatable<Entity>
+namespace PizzaOrders.Domain.Primitives
 {
-    protected Entity(Guid id)
+    public abstract class Entity : IEquatable<Entity>
     {
-        Id = id;
-    }
-
-    public Guid Id { get; private init; }
-
-    public static bool operator ==(Entity? first, Entity? second)
-    {
-        return first is not null && second is not null && first.Equals(second);
-    }
-
-    public static bool operator !=(Entity? first, Entity? second)
-    {
-        return !(first == second);
-    }
-
-    public bool Equals(Entity? other)
-    {
-        if (other is null)
+        protected Entity(Guid id)
         {
-            return false;
+            Id = id;
         }
 
-        if (other.GetType() != GetType())
+        public Guid Id { get; private init; }
+
+        public static bool operator ==(Entity? first, Entity? second)
         {
-            return false;
+            return first is not null && second is not null && first.Equals(second);
         }
 
-        return other.Id == Id;
-    }
-
-    public override bool Equals(object? obj)
-    {
-        if (obj is null)
+        public static bool operator !=(Entity? first, Entity? second)
         {
-            return false;
+            return !(first == second);
         }
 
-        if (obj.GetType() != GetType())
+        public bool Equals(Entity? other)
         {
-            return false;
+            if (other is null)
+            {
+                return false;
+            }
+
+            if (other.GetType() != GetType())
+            {
+                return false;
+            }
+
+            return other.Id == Id;
         }
 
-        if (obj is not Entity entity)
+        public override bool Equals(object? obj)
         {
-            return false;
+            if (obj is null)
+            {
+                return false;
+            }
+
+            if (obj.GetType() != GetType())
+            {
+                return false;
+            }
+
+            if (obj is not Entity entity)
+            {
+                return false;
+            }
+
+            return entity.Id == Id;
         }
 
-        return entity.Id == Id;
-    }
-
-    public override int GetHashCode()
-    {
-        return Id.GetHashCode();
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
     }
 }

@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\PizzaOrders.Application\PizzaOrders.Application.csproj" />
+      <ProjectReference Include="..\PizzaOrders.Contracts\PizzaOrders.Contracts.csproj" />
     </ItemGroup>
 
     <ItemGroup>
