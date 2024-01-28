@@ -24,5 +24,14 @@ namespace PizzaOrders.Infrastructure.Services.Orders
 
             return new OrdersResult(ordersList);
         }
+
+        public async Task<OrderResult> PostOrderAsync(OrderRequest orderRequest)
+        {
+            var order = new Order(Guid.NewGuid(), orderRequest.UserEmail, orderRequest.PizzaName, orderRequest.Ingredients,
+                orderRequest.OrderDate);
+            await _ordersRepository.PostOrderAsync(order);
+
+            return new OrderResult(order);
+        }
     }
 }

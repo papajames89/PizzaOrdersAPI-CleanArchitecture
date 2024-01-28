@@ -19,5 +19,10 @@ namespace PizzaOrders.Infrastructure.Persistence
 
             return result;
         }
+
+        public async Task PostOrderAsync(Order order)
+        {
+           await _collection.InsertOneAsync(order);
+        }
     }
 }

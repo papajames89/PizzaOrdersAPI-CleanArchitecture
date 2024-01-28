@@ -3,10 +3,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PizzaOrders.Application.Services.Orders;
 using PizzaOrders.Contracts.Orders;
+using PizzaOrders.Domain.Entities;
 
 namespace PizzaOrders.API.Controllers.V1
 {
-    [Route("api/v{version:apiVersion}/[controller]")]
+    [Route("api/v{version:apiVersion}/pizza-orders")]
     [Authorize]
     [ApiController]
     [ApiVersion(1.0)]
@@ -19,8 +20,16 @@ namespace PizzaOrders.API.Controllers.V1
             _ordersService = ordersService;
         }
 
+        [HttpPost("post-order")]
+        public async Task<IActionResult> PostOrder(OrderRequest order)
+        {
+            var result = await _ordersService.PostOrderAsync(order);
+
+            return Ok(result);
+        }
+        
         [HttpGet("get-orders")]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetOrders()
         {
             var result = await _ordersService.GetOrdersAsync();
 
