@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PizzaOrders.Application.Services.Orders;
 using PizzaOrders.Contracts.Orders;
-using PizzaOrders.Domain.Entities;
 
 namespace PizzaOrders.API.Controllers.V1
 {

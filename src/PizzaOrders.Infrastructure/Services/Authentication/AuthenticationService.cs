@@ -17,7 +17,7 @@ namespace PizzaOrders.Infrastructure.Services.Authentication
             _userRepository = userRepository;
         }
 
-        public async Task<AuthenticationResult> Register(string firstName, string lastName, string email,
+        public async Task<AuthenticationResult> RegisterAsync(string firstName, string lastName, string email,
             string password)
         {
             // Check if user already exists
@@ -38,7 +38,7 @@ namespace PizzaOrders.Infrastructure.Services.Authentication
             return new AuthenticationResult(user, token);
         }
 
-        public async Task<AuthenticationResult> Login(string email, string password)
+        public async Task<AuthenticationResult> LoginAsync(string email, string password)
         {
             // Validate the user exists
             var existingUser = await _userRepository.GetUserByEmailAsync(email);
