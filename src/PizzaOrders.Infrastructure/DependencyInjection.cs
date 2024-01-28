@@ -4,11 +4,13 @@ using PizzaOrders.Application.Common.Interfaces.Authentication;
 using PizzaOrders.Application.Common.Interfaces.Persistence;
 using PizzaOrders.Application.Common.Interfaces.Services;
 using PizzaOrders.Application.Services.Authentication;
+using PizzaOrders.Application.Services.Orders;
 using PizzaOrders.Infrastructure.Authentication;
 using PizzaOrders.Infrastructure.Persistence;
 using PizzaOrders.Infrastructure.Persistence.MongoDb;
 using PizzaOrders.Infrastructure.Services;
 using PizzaOrders.Infrastructure.Services.Authentication;
+using PizzaOrders.Infrastructure.Services.Orders;
 
 namespace PizzaOrders.Infrastructure
 {
@@ -25,8 +27,10 @@ namespace PizzaOrders.Infrastructure
             services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
             services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IOrdersService, OrdersService>();
 
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IOrdersRepository, OrdersRepository>();
             services.AddMongoDbRepository(builderConfiguration);
 
             return services;
