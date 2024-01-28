@@ -16,10 +16,10 @@ namespace PizzaOrders.Infrastructure.Services.Orders
 
         public async Task<OrdersResult> GetOrdersAsync()
         {
-            var orders = await _ordersRepository.GetOrdersAsync();
-            if (orders is not List<Order> ordersList)
+            var ordersResult = await _ordersRepository.GetOrdersAsync();
+            if (ordersResult is not List<Order> ordersList)
             {
-                throw new Exception("");
+                throw new Exception("Wrong type of result!");
             }
 
             return new OrdersResult(ordersList);
