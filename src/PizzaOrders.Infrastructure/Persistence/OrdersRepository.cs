@@ -1,5 +1,6 @@
 using MongoDB.Driver;
 using PizzaOrders.Application.Common.Interfaces.Persistence;
+using PizzaOrders.Contracts.Orders;
 using PizzaOrders.Domain.Entities;
 using PizzaOrders.Infrastructure.Persistence.MongoDb;
 
@@ -15,14 +16,17 @@ namespace PizzaOrders.Infrastructure.Persistence
         }
         public async Task<List<Order>> GetOrdersAsync()
         {
-            var result = await _collection.Find(FilterDefinition<Order>.Empty).ToListAsync();
-
-            return result;
+            return await _collection.Find(FilterDefinition<Order>.Empty).ToListAsync();
         }
 
         public async Task PostOrderAsync(Order order)
         {
            await _collection.InsertOneAsync(order);
+        }
+
+        public async Task<List<Order>> GetOrdersByUserAsync(OrdersByUserRequest request)
+        {
+            return await _collection.Find(o => o.UserEmail == request.Email).ToListAsync();
         }
     }
 }

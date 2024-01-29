@@ -26,11 +26,19 @@ namespace PizzaOrders.API.Controllers.V1
 
             return Ok(result);
         }
-        
+
         [HttpGet("get-orders")]
         public async Task<IActionResult> GetOrders()
         {
             var result = await _ordersService.GetOrdersAsync();
+
+            return Ok(result);
+        }
+
+        [HttpGet("get-orders-by-user")]
+        public async Task<IActionResult> GetOrdersByUser(OrdersByUserRequest request)
+        {
+            var result = await _ordersService.GetOrdersByUserAsync(request);
 
             return Ok(result);
         }
