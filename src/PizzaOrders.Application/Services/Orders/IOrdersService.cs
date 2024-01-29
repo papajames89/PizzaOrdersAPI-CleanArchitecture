@@ -7,5 +7,6 @@ namespace PizzaOrders.Application.Services.Orders
         Task<OrdersResult> GetOrdersAsync();
         Task<OrdersResult> GetOrdersByUserAsync(OrdersByUserRequest request);
         Task<OrderResult> PostOrderAsync(OrderRequest order);
+        Task DeleteOrderByIdAsync(Guid id);
     }
 }

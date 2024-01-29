@@ -44,5 +44,10 @@ namespace PizzaOrders.Infrastructure.Services.Orders
 
             return new OrderResult(order);
         }
+
+        public async Task DeleteOrderByIdAsync(Guid id)
+        {
+            await _ordersRepository.DeleteOrderByAsync(id);
+        }
     }
 }

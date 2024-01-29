@@ -19,14 +19,19 @@ namespace PizzaOrders.Infrastructure.Persistence
             return await _collection.Find(FilterDefinition<Order>.Empty).ToListAsync();
         }
 
+        public async Task<List<Order>> GetOrdersByUserAsync(OrdersByUserRequest request)
+        {
+            return await _collection.Find(o => o.UserEmail == request.Email).ToListAsync();
+        }
+
         public async Task PostOrderAsync(Order order)
         {
            await _collection.InsertOneAsync(order);
         }
 
-        public async Task<List<Order>> GetOrdersByUserAsync(OrdersByUserRequest request)
+        public async Task DeleteOrderByAsync(Guid id)
         {
-            return await _collection.Find(o => o.UserEmail == request.Email).ToListAsync();
+            await _collection.DeleteOneAsync(o => o.Id.Equals(id));
         }
     }
 }

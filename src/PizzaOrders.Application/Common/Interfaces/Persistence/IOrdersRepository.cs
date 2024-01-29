@@ -8,5 +8,6 @@ namespace PizzaOrders.Application.Common.Interfaces.Persistence
         Task<List<Order>> GetOrdersAsync();
         Task<List<Order>> GetOrdersByUserAsync(OrdersByUserRequest request);
         Task PostOrderAsync(Order order);
+        Task DeleteOrderByAsync(Guid id);
     }
 }
